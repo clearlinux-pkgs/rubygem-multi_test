@@ -4,7 +4,7 @@
 #
 Name     : rubygem-multi_test
 Version  : 0.1.2
-Release  : 3
+Release  : 4
 URL      : https://rubygems.org/downloads/multi_test-0.1.2.gem
 Source0  : https://rubygems.org/downloads/multi_test-0.1.2.gem
 Summary  : No detailed summary available
