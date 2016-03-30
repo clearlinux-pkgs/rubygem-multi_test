@@ -4,13 +4,14 @@
 #
 Name     : rubygem-multi_test
 Version  : 0.1.2
-Release  : 4
+Release  : 5
 URL      : https://rubygems.org/downloads/multi_test-0.1.2.gem
 Source0  : https://rubygems.org/downloads/multi_test-0.1.2.gem
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : MIT
 BuildRequires : ruby
+BuildRequires : rubygem-bundler
 BuildRequires : rubygem-rdoc
 
 %description
@@ -25,17 +26,17 @@ gem spec %{SOURCE0} -l --ruby > rubygem-multi_test.gemspec
 gem build rubygem-multi_test.gemspec
 
 %install
-gem_dir=$(ruby -e'puts Gem.default_dir')
+%global gem_dir $(ruby -e'puts Gem.default_dir')
 gem install -V \
 --local \
 --force \
---install-dir .${gem_dir} \
+--install-dir .%{gem_dir} \
 --bindir .%{_bindir} \
 multi_test-0.1.2.gem
 
-mkdir -p %{buildroot}${gem_dir}
-cp -pa .${gem_dir}/* \
-%{buildroot}${gem_dir}
+mkdir -p %{buildroot}%{gem_dir}
+cp -pa .%{gem_dir}/* \
+%{buildroot}%{gem_dir}
 
 if [ -d .%{_bindir} ]; then
 mkdir -p %{buildroot}%{_bindir}
@@ -43,80 +44,73 @@ cp -pa .%{_bindir}/* \
 %{buildroot}%{_bindir}/
 fi
 
+%check
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost
+pushd %{buildroot}%{gem_dir}/gems/multi_test-0.1.2
+popd
+
+
 %files
 %defattr(-,root,root,-)
-/usr/lib64/ruby/gems/2.2.0/cache/multi_test-0.1.2.gem
-/usr/lib64/ruby/gems/2.2.0/doc/multi_test-0.1.2/ri/MultiTest/AssertionLibrary/available-c.ri
-/usr/lib64/ruby/gems/2.2.0/doc/multi_test-0.1.2/ri/MultiTest/AssertionLibrary/cdesc-AssertionLibrary.ri
-/usr/lib64/ruby/gems/2.2.0/doc/multi_test-0.1.2/ri/MultiTest/AssertionLibrary/detect_best-c.ri
-/usr/lib64/ruby/gems/2.2.0/doc/multi_test-0.1.2/ri/MultiTest/AssertionLibrary/extend_world-i.ri
-/usr/lib64/ruby/gems/2.2.0/doc/multi_test-0.1.2/ri/MultiTest/AssertionLibrary/new-c.ri
-/usr/lib64/ruby/gems/2.2.0/doc/multi_test-0.1.2/ri/MultiTest/AssertionLibrary/null-c.ri
-/usr/lib64/ruby/gems/2.2.0/doc/multi_test-0.1.2/ri/MultiTest/AssertionLibrary/require%3f-i.ri
-/usr/lib64/ruby/gems/2.2.0/doc/multi_test-0.1.2/ri/MultiTest/MinitestWorld/assertions-i.ri
-/usr/lib64/ruby/gems/2.2.0/doc/multi_test-0.1.2/ri/MultiTest/MinitestWorld/cdesc-MinitestWorld.ri
-/usr/lib64/ruby/gems/2.2.0/doc/multi_test-0.1.2/ri/MultiTest/MinitestWorld/extended-c.ri
-/usr/lib64/ruby/gems/2.2.0/doc/multi_test-0.1.2/ri/MultiTest/cdesc-MultiTest.ri
-/usr/lib64/ruby/gems/2.2.0/doc/multi_test-0.1.2/ri/MultiTest/disable_autorun-c.ri
-/usr/lib64/ruby/gems/2.2.0/doc/multi_test-0.1.2/ri/MultiTest/extend_with_best_assertion_library-c.ri
-/usr/lib64/ruby/gems/2.2.0/doc/multi_test-0.1.2/ri/MultiTest/run-i.ri
-/usr/lib64/ruby/gems/2.2.0/doc/multi_test-0.1.2/ri/cache.ri
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/.travis.yml
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/History.md
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/LICENSE
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/Makefile
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/README.md
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/Rakefile
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/lib/multi_test.rb
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/lib/multi_test/assertion_library.rb
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/lib/multi_test/minitest_world.rb
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/multi_test.gemspec
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/README.md
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/all
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/activesupport-4.0.0/Gemfile
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/activesupport-4.0.0/Gemfile.lock
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/activesupport-4.0.0/scenarios
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/activesupport-4.1.0/Gemfile
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/activesupport-4.1.0/Gemfile.lock
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/activesupport-4.1.0/scenarios
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/minitest-5.0.1/Gemfile
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/minitest-5.0.1/Gemfile.lock
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/minitest-5.0.1/scenarios
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/minitest-5.1.0/Gemfile
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/minitest-5.1.0/Gemfile.lock
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/minitest-5.1.0/scenarios
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/minitest-5.2.0/Gemfile
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/minitest-5.2.0/Gemfile.lock
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/minitest-5.2.0/scenarios
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/plain-ruby/Gemfile
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/plain-ruby/Gemfile.lock
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/plain-ruby/scenarios
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/rspec-1.3.2/Gemfile
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/rspec-1.3.2/Gemfile.lock
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/rspec-1.3.2/scenarios
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/rspec-2.14/Gemfile
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/rspec-2.14/Gemfile.lock
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/rspec-2.14/scenarios
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/rspec-3.0/Gemfile
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/rspec-3.0/Gemfile.lock
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/rspec-3.0/scenarios
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/rspec-3.1/Gemfile
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/rspec-3.1/Gemfile.lock
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/rspec-3.1/scenarios
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/test-unit-2.4.8/Gemfile
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/test-unit-2.4.8/Gemfile.lock
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/test-unit-2.4.8/scenarios
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/test-unit-2.4.9/Gemfile
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/test-unit-2.4.9/Gemfile.lock
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/gemfiles/test-unit-2.4.9/scenarios
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/run
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/scenarios/bundler_require.rb
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/scenarios/minitest_assertions.rb
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/scenarios/minitest_propagate_exit_code.rb
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/scenarios/no_assertion_library.rb
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/scenarios/require_activesupport_testing_autorun.rb
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/scenarios/require_test_unit.rb
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/scenarios/rspec_matchers.rb
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/scenarios/spec_matchers.rb
-/usr/lib64/ruby/gems/2.2.0/gems/multi_test-0.1.2/test/scenarios/test_unit_assertions.rb
-/usr/lib64/ruby/gems/2.2.0/specifications/multi_test-0.1.2.gemspec
+/usr/lib64/ruby/gems/2.3.0/cache/multi_test-0.1.2.gem
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/.travis.yml
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/History.md
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/LICENSE
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/Makefile
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/README.md
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/Rakefile
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/lib/multi_test.rb
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/lib/multi_test/assertion_library.rb
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/lib/multi_test/minitest_world.rb
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/multi_test.gemspec
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/README.md
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/all
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/activesupport-4.0.0/Gemfile
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/activesupport-4.0.0/Gemfile.lock
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/activesupport-4.0.0/scenarios
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/activesupport-4.1.0/Gemfile
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/activesupport-4.1.0/Gemfile.lock
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/activesupport-4.1.0/scenarios
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/minitest-5.0.1/Gemfile
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/minitest-5.0.1/Gemfile.lock
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/minitest-5.0.1/scenarios
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/minitest-5.1.0/Gemfile
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/minitest-5.1.0/Gemfile.lock
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/minitest-5.1.0/scenarios
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/minitest-5.2.0/Gemfile
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/minitest-5.2.0/Gemfile.lock
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/minitest-5.2.0/scenarios
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/plain-ruby/Gemfile
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/plain-ruby/Gemfile.lock
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/plain-ruby/scenarios
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/rspec-1.3.2/Gemfile
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/rspec-1.3.2/Gemfile.lock
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/rspec-1.3.2/scenarios
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/rspec-2.14/Gemfile
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/rspec-2.14/Gemfile.lock
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/rspec-2.14/scenarios
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/rspec-3.0/Gemfile
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/rspec-3.0/Gemfile.lock
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/rspec-3.0/scenarios
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/rspec-3.1/Gemfile
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/rspec-3.1/Gemfile.lock
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/rspec-3.1/scenarios
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/test-unit-2.4.8/Gemfile
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/test-unit-2.4.8/Gemfile.lock
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/test-unit-2.4.8/scenarios
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/test-unit-2.4.9/Gemfile
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/test-unit-2.4.9/Gemfile.lock
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/gemfiles/test-unit-2.4.9/scenarios
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/run
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/scenarios/bundler_require.rb
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/scenarios/minitest_assertions.rb
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/scenarios/minitest_propagate_exit_code.rb
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/scenarios/no_assertion_library.rb
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/scenarios/require_activesupport_testing_autorun.rb
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/scenarios/require_test_unit.rb
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/scenarios/rspec_matchers.rb
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/scenarios/spec_matchers.rb
+/usr/lib64/ruby/gems/2.3.0/gems/multi_test-0.1.2/test/scenarios/test_unit_assertions.rb
+/usr/lib64/ruby/gems/2.3.0/specifications/multi_test-0.1.2.gemspec
